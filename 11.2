@@ -1,0 +1,103 @@
+---
+title: '11.2'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+JohnsFamily <-
+  list(
+    name = "John", 
+    age = 35,
+    spouse = list(
+      name = "Mary", 
+      age = 32),
+    children = list(
+      list(
+        name = "Bill", 
+        age = 5),
+      list(
+        name = "Jane", 
+        age = 3)
+    )
+  )
+```
+
+
+```{r}
+JohnsFamilyCopy <- JohnsFamily
+
+JohnsFamilyCopy[[1]] <- "Watson" 
+JohnsFamilyCopy[[1]]
+```
+
+
+
+```{r}
+JohnsFamilyCopy[c(1,2)] <- 
+  list(name="Watson", age=37) 
+JohnsFamilyCopy[c(1,2)]
+```
+
+
+```{r}
+JohnsFamilyCopy[c(1,2)] <- 
+  list("Dickens", 32) 
+JohnsFamilyCopy[c(1,2)]
+```
+
+
+```{r}
+JohnsFamilyCopy$spouse[["age"]]
+JohnsFamilyCopy$children[[1]]$name
+```
+```{r}
+example1 <- c("John", "Mary", "Bill")
+# retrieve an non-existing element name "person4"
+example1[["person4"]] <- "Ken"
+# retrieve two non-existing element positions
+example1[c(7,8)] <- c("Jack", "Janem")
+example1
+```
+
+```{r}
+JohnsFamilyCopy2 <- JohnsFamily
+# Add a new born 
+JohnsFamilyCopy2$children[[3]] <- 
+  list(name="Lisa", age=0) # $ is for list only
+JohnsFamilyCopy2
+```
+
+
+```{r}
+JohnsFamilyCopy3 <- JohnsFamily
+JohnsFamilyCopy3$children[3] <-
+  list(
+    name = "Jimmy", 
+    age = 0
+  )
+JohnsFamilyCopy3
+```
+
