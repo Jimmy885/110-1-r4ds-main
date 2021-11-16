@@ -1,0 +1,168 @@
+---
+title: "ch4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+typeof(c("John", "Mary"))
+typeof(c(2, 3.1412))
+typeof(c(TRUE, TRUE, F))
+```
+
+```{r}
+class(c("John", "Mary"))
+class(c(2, 3.1412))
+class(c(TRUE, TRUE, F))
+```
+
+```{r}
+datetimeinfo<-"2021-01-01 12:03:33" 
+
+```
+
+```{r}
+install.packages("lubridate")
+```
+```{r}
+datetimeiofo2<-lubridate::ymd_hms("2021-01-01 12:03:33") + lubridate::seconds(20)
+class(datetimeiofo2)
+```
+
+```{r}
+commonClasses <- list()
+```
+
+```{r}
+# save three different atomic vectors
+commonClasses$character <- c("John", "Mary", "Bill")
+commonClasses$numeric <- c(2.3, 4, 7)
+commonClasses$logical <- c(TRUE, T, F, FALSE)
+```
+
+```{r}
+# check each atomic vector class
+class(commonClasses$character) # name call on commonClasses to get its value then retrieve the element value whose element name is "character"
+
+class(commonClasses$numeric)
+class(commonClasses$logical)
+```
+
+```{r}
+bloodTypes <- c("AB", "AB", "A", "B", "A", "A", "B", "O", "O", "AB")
+```
+
+```{r}
+bloodTypes_fct <- 
+  factor(bloodTypes)
+bloodTypes_fct 
+```
+
+```{r}
+table(bloodTypes_fct)
+```
+
+```{r}
+levels(bloodTypes_fct)
+```
+
+```{r}
+bloodTypes_fct_levelsSetup <- 
+  factor(bloodTypes, levels=c("A", "B", "O", "AB"))
+bloodTypes_fct_levelsSetup
+```
+
+```{r}
+class(bloodTypes_fct_levelsSetup)
+```
+
+```{r}
+table(bloodTypes_fct_levelsSetup)
+```
+
+```{r}
+household_income <- c("low income", "low income", "middle income", "low income", "high income", "middle income", "high income", "high income", "middle income", "middle income")
+```
+
+```{r}
+household_income_fct <- 
+  factor(household_income)
+levels(household_income_fct)
+```
+
+```{r}
+household_income_fct_levelsSetup <-
+  factor(household_income, levels = c("low income", "middle income", "high income"))
+levels(household_income_fct_levelsSetup)
+```
+
+```{r}
+table(household_income_fct_levelsSetup)
+```
+
+```{r}
+household_income_fct_levelsSetup[[1]]
+household_income_fct_levelsSetup[[1]] > "low income"
+```
+
+```{r}
+household_income_fct_levelsSetup_ordered <-
+  factor(
+    household_income, 
+    levels = c("low income", "middle income", "high income"),
+    ordered = T
+    )
+household_income_fct_levelsSetup_ordered 
+```
+
+```{r}
+household_income_fct_levelsSetup_ordered[[1]]
+household_income_fct_levelsSetup_ordered[[1]] > "low income"
+
+household_income_fct_levelsSetup_ordered[[3]]
+household_income_fct_levelsSetup_ordered[[3]] > "low income"
+```
+
+```{r}
+commonClasses$ordered_factor <- household_income_fct_levelsSetup_ordered
+class(commonClasses$ordered_factor)
+```
+
+```{r}
+#exercise 4.1
+customerExperience <- c('very happy','very happy','satisfied','satisfied','satisfied','very happy','bad','bad','satisfied','satisfied','bad','happy','happy','very happy','happy','happy','satisfied','very happy','very happy','satisfied','satisfied','very happy','satisfied','bad','very happy','very bad','very happy','bad','bad','very bad')
+
+customerExperience_fct <-factor(customerExperience)
+table(customerExperience_fct)
+levels = c("very bad","bad","satisfied ","happy","very happy")
+customerExperience_fct_ordered<-
+    factor(customerExperience_fct, 
+    levels = c("very bad","bad","satisfied ","happy","very happy"),
+    ordered = T                                  )
+customerExperience_fct_ordered[[1]]<"happy"
+customerExperience_fct_ordered[[1]]>"happy"
+
+```
+
