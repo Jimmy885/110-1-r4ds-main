@@ -1,0 +1,651 @@
+---
+title: "ch4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+typeof(c("John", "Mary"))
+typeof(c(2, 3.1412))
+typeof(c(TRUE, TRUE, F))
+```
+
+```{r}
+class(c("John", "Mary"))
+class(c(2, 3.1412))
+class(c(TRUE, TRUE, F))
+```
+
+```{r}
+datetimeinfo<-"2021-01-01 12:03:33" 
+
+```
+
+```{r}
+install.packages("lubridate")
+```
+```{r}
+datetimeiofo2<-lubridate::ymd_hms("2021-01-01 12:03:33") + lubridate::seconds(20)
+class(datetimeiofo2)
+```
+
+```{r}
+commonClasses <- list()
+```
+
+```{r}
+# save three different atomic vectors
+commonClasses$character <- c("John", "Mary", "Bill")
+commonClasses$numeric <- c(2.3, 4, 7)
+commonClasses$logical <- c(TRUE, T, F, FALSE)
+```
+
+```{r}
+# check each atomic vector class
+class(commonClasses$character) # name call on commonClasses to get its value then retrieve the element value whose element name is "character"
+
+class(commonClasses$numeric)
+class(commonClasses$logical)
+```
+
+```{r}
+bloodTypes <- c("AB", "AB", "A", "B", "A", "A", "B", "O", "O", "AB")
+```
+
+```{r}
+bloodTypes_fct <- 
+  factor(bloodTypes)
+bloodTypes_fct 
+```
+
+```{r}
+table(bloodTypes_fct)
+```
+
+```{r}
+levels(bloodTypes_fct)
+```
+
+```{r}
+bloodTypes_fct_levelsSetup <- 
+  factor(bloodTypes, levels=c("A", "B", "O", "AB"))
+bloodTypes_fct_levelsSetup
+```
+
+```{r}
+class(bloodTypes_fct_levelsSetup)
+```
+
+```{r}
+table(bloodTypes_fct_levelsSetup)
+```
+
+```{r}
+household_income <- c("low income", "low income", "middle income", "low income", "high income", "middle income", "high income", "high income", "middle income", "middle income")
+```
+
+```{r}
+household_income_fct <- 
+  factor(household_income)
+levels(household_income_fct)
+```
+
+```{r}
+household_income_fct_levelsSetup <-
+  factor(household_income, levels = c("low income", "middle income", "high income"))
+levels(household_income_fct_levelsSetup)
+```
+
+```{r}
+table(household_income_fct_levelsSetup)
+```
+
+```{r}
+household_income_fct_levelsSetup[[1]]
+household_income_fct_levelsSetup[[1]] > "low income"
+```
+
+```{r}
+household_income_fct_levelsSetup_ordered <-
+  factor(
+    household_income, 
+    levels = c("low income", "middle income", "high income"),
+    ordered = T
+    )
+household_income_fct_levelsSetup_ordered 
+```
+
+```{r}
+household_income_fct_levelsSetup_ordered[[1]]
+household_income_fct_levelsSetup_ordered[[1]] > "low income"
+
+household_income_fct_levelsSetup_ordered[[3]]
+household_income_fct_levelsSetup_ordered[[3]] > "low income"
+```
+
+```{r}
+commonClasses$ordered_factor <- household_income_fct_levelsSetup_ordered
+class(commonClasses$ordered_factor)
+```
+
+```{r}
+#exercise 4.1
+customerExperience <- c('very happy','very happy','satisfied','satisfied','satisfied','very happy','bad','bad','satisfied','satisfied','bad','happy','happy','very happy','happy','happy','satisfied','very happy','very happy','satisfied','satisfied','very happy','satisfied','bad','very happy','very bad','very happy','bad','bad','very bad')
+
+customerExperience_fct <-factor(customerExperience)
+table(customerExperience_fct)
+levels = c("very bad","bad","satisfied ","happy","very happy")
+customerExperience_fct_ordered<-
+    factor(customerExperience_fct, 
+    levels = c("very bad","bad","satisfied ","happy","very happy"),
+    ordered = T                                  )
+customerExperience_fct_ordered[[1]]<"happy"
+customerExperience_fct_ordered[[1]]>"happy"
+
+```
+
+```{r}
+lubridate::ymd(c("2021/10/30", "2021-10-30", "2021 October 30", "2021 Oct. 30"))
+lubridate::ydm(c("2021/30/10", "2021-30-10", "2021 30 October", "2021 30 Oct."))
+lubridate::mdy(c("10/30/2021", "10-30-2021", "October 30, 2021", "Oct. 30, 2021"))
+lubridate::dmy(c("30/10/2021", "30-10-2021", "30 October, 2021", "30 Oct., 2021"))
+```
+
+```{r}
+dayinfo <-list()
+dayinfo$ymd<-c("2021/10/30", "2021-10-30", "2021 October 30", "2021 Oct. 30")
+class(dayinfo$ymd)
+lubridate::ymd(dayinfo$ymd)->
+  dayinfo$ymd_parased
+```
+
+```{r}
+# A parsed date data has Date class.
+commonClasses$date <- lubridate::dmy(c("30/10/2021", "30-10-2021", "30 October 2021", "30 Oct., 2021"))
+class(commonClasses$date)
+```
+
+```{r}
+dateTime_taipei <- 
+  lubridate::ymd_hms(
+    c("2021/10/30 13:22:52", "2021-10-31 1:22:52PM"),
+    tz = "Asia/Taipei")
+dateTime_taipei 
+```
+
+```{r}
+dateTime_london <- 
+  lubridate::mdy_hm(
+    c("October 30, 2021, 23:10", "Oct. 30, 2021 11:10PM"),
+    tz="Europe/London")
+dateTime_london
+```
+
+```{r}
+commonClasses<-list()
+commonClasses$date_time <- c(
+  dateTime_taipei,
+  dateTime_london
+)
+class(commonClasses$date_time)
+```
+
+```{r}
+dateTime_london_atTaipei <-
+  lubridate::with_tz(
+    dateTime_london,
+    tz="Asia/Taipei"
+  )
+dateTime_london
+dateTime_london_atTaipei
+```
+```{r}
+#Exercise 4.2
+subsidiaries <- list()
+subsidiaries$boston <- c("2020 Oct. 13 15:00:00", "2019 Apr. 10 09:30:00") # boston time zone
+subsidiaries$mykonos <- c("14 Jan., 2021 03:27:00", "8 Aug., 2020 11:20:00") # mykonos time zone
+date_time_boston <-lubridate::ymd_hms( c("2020 Oct. 13 15:00:00", "2019 Apr. 10 09:30:00"))
+date_time_mykonos<-lubridate::dmy_hms(c("14 Jan., 2021 03:27:00", "8 Aug., 2020 11:20:00"))
+date_time_boston_atdeli<-
+  lubridate::with_tz(date_time_boston, 
+                   tz = "Asia/Colombo")
+
+date_time_mykonos_atdeli<-
+  lubridate::with_tz(date_time_mykonos, 
+                   tz = "Asia/Colombo")
+date_time_boston_atdeli
+date_time_mykonos_atdeli
+```
+
+```{r}
+survey_fbf <-
+  list(
+    age=c(54, 32, 28, 20), # age
+    gender=c("male", "female", "female", "male"), # gender
+    residence=c("north", "south", "east", "east"), # residence
+    income=c(100, 25, NA, 77) # income
+  )
+```
+
+```{r}
+survey_df <-
+  data.frame(
+    survey_fbf
+  )
+```
+
+```{r}
+survey_df_1step <-
+  data.frame(
+    age=c(54, 32, 28, 20), # age
+    gender=c("male", "female", "female", "male"), # gender
+    residence=c("north", "south", "east", "east"), # residence
+    income=c(100, 25, NA, 77) # income
+  )
+```
+
+```{r}
+# a parsed collection value will have data.frame class.
+commonClasses$data_frame <- survey_df_1step
+class(commonClasses$data_frame)
+```
+
+```{r}
+commonClasses$data_frame$gender
+```
+
+```{r}
+survey_fbf2 <-
+  list(
+    age=list(54, 32, 28, 20), # age
+    gender=list("male", "female", "female", "male"), # gender
+    residence=list("north", "south", "east", "east"), # residence
+    income=list(100, 25, NA, 77) # income
+  )
+```
+
+
+```{r}
+data.frame(survey_fbf2)
+```
+
+```{r}
+df_survey_fbf2 <- 
+  list2DF(survey_fbf2)
+df_survey_fbf2
+```
+
+```{r}
+df_survey_fbf2
+```
+
+```{r}
+commonClasses$data_frame[2, "age"]
+commonClasses$data_frame[c(1,4),c("income","age")]
+```
+
+```{r}
+commonClasses$data_frame[c(1,4), ] # 1st and 4th rows and ALL columns
+commonClasses$data_frame[, c("income", "age")] # ALL rows, and the income and age columns
+```
+
+```{r}
+# Remove
+commonClasses$data_frame[, -c(2)]
+# Replace
+commonClasses$data_frame[2, c( "age","income")] <- data.frame(31, 22)
+commonClasses$data_frame[c(1,2), c("age", "income")] <- data.frame(
+  age=c(10, 15),
+  income=c(10, 15)
+)
+# Add
+commonClasses$data_frame[, "isStudent"] <- data.frame(isStudent=c(T, T, F, T))
+commonClasses$data_frame[, "isStudent"]
+commonClasses$data_frame
+```
+
+```{r}
+commonClasses$matrix <- matrix(
+  c(2, 11, -1, 3, 4, -5), 
+  nrow=2, 
+  byrow = T # default is by column
+)
+class(commonClasses$matrix)
+```
+
+```{r}
+# non atomic matrix
+matrix_nonAtomic <- matrix(
+  list(
+    32, "John", 
+    33, "Jane", 
+    34, "Ben"
+    ), nrow=2
+)
+matrix_nonAtomic
+```
+```{r}
+#exercise 4.3
+dfExercise <- list()
+dataSet1 <- list(
+  name=c("John", "Mary", "Ben"),
+  age=c(33, 45, NA)
+)
+dfExercise$data1.<-data.frame(dataSet1)
+
+dataSet1$children<-data.frame(
+  'Jane',
+                                       2
+                                       ) 
+dataSet1$children<-data.frame(
+  'Bill',
+                                       3
+                                       )
+dataSet1$children<-data.frame(
+  'Ken',
+                                       0
+                                       ) 
+dataSet1$children<-data.frame(
+ 'William',
+                                       10
+                                       ) 
+dfExercise$data2.<-data.frame(dfExercise$data1.)
+dfExercise$data2.
+```
+
+```{r}
+#exercise 4.4
+# Remove
+commonClasses$data_frame[-c(3)]
+# Replace
+commonClasses$data_frame[c(1, 3)]<- data.frame(31, 22)
+commonClasses$data_frame[c(1,3)] <- data.frame(
+  age=c(10, 15),
+  income=c(10, 15)
+)
+# Add
+commonClasses$data_frame$isStudent <- data.frame(isStudent=c(T, T, F, T))
+```
+
+
+```{r}
+c(2, 5, 7) + 3 # work
+list(2, 5, 7) + 3 # won't work
+```
+
+```{r}
+mylist <- list(2, 5, 7)
+mylist[[1]] <- mylist[[1]]+3
+mylist[[2]] <- mylist[[2]]+3
+mylist[[3]] <- mylist[[3]]+3
+print(mylist)
+```
+
+```{r}
+unlist(mylist)+3
+```
+```{r}
+examples <- list()
+examples$unlist$source1 <-
+  list("A", "B", "C")
+examples$unlist$result1 <- 
+  unlist(examples$unlist$source1)
+
+print(examples$unlist$source1)
+print(examples$unlist$result1)
+
+class(examples$unlist$source1)
+class(examples$unlist$result1)
+```
+
+
+
+```{r}
+examples$unlist$source2 <- 
+  list(
+    list("A", "B", list("C")),
+    list("D"),
+    "E"
+  )
+examples$unlist$result2 <- 
+  unlist(
+    examples$unlist$source2
+  )
+
+print(examples$unlist$source2)
+print(examples$unlist$result2)
+class(examples$unlist$source2)
+class(examples$unlist$result2)
+```
+
+
+```{r}
+examples$unlist$source3 <- list(5, 6, 7)
+examples$unlist$result3 <-
+  unlist(
+    examples$unlist$source3
+  )
+
+class(examples$unlist$source3) # list class
+class(examples$unlist$result3) # numeric class
+```
+
+```{r}
+namedList <- list(name="John", spouse="Mary")
+
+unlist(
+  namedList
+) -> unlist_namedList
+
+unlist_namedList
+class(unlist_namedList)
+```
+
+```{r}
+#exercise 4.5
+participations <- 
+list('session 3',c("session 1", "session 2", "session 3"),'session 3',c("session 2", "session 1"),c("session 3", "session 1"),c("session 3", "session 2", "session 1"),'session 2','session 1',c("session 2", "session 1", "session 3"),c("session 3", "session 1", "session 2"))
+unlist(participations)
+class(participations)
+table(unlist(participations))
+```
+
+```{r}
+as.list(
+  c("A", "B", "C")
+)
+
+# element names will be preserved
+as.list(
+  c(name="John", spouse="Mary")
+)
+```
+
+```{r}
+lgl <- c(TRUE, FALSE)
+num <- c(0.2, 3, 0)
+```
+
+```{r}
+as.character(lgl)
+as.character(num)
+```
+
+```{r}
+tookRcourse <- c(TRUE, FALSE, TRUE, TRUE,TRUE)
+as.numeric(tookRcourse)
+howManyTookR <- sum(
+  as.numeric(tookRcourse)
+)
+print(howManyTookR)
+```
+
+```{r}
+which(tookRcourse)
+```
+
+```{r}
+ming_guoDates <- c("1100822","1090723") # 民國100-8-22，民國109-7-23
+
+# 民國1年 is 1911
+westernDates <- 
+  as.numeric(ming_guoDates) +
+  19110000
+
+westernDates 
+
+lubridate::ymd(westernDates)
+```
+
+```{r}
+# on numeric vector
+# tell us if the number is not zero
+print(num)
+as.logical(num)
+```
+
+```{r}
+# only person with a non-zero wage has a job
+wage <- c(3000, 2000, 0, 1000)
+haveJob <- as.logical(wage)
+haveJob
+```
+
+```{r}
+whoHasAJob <- which(haveJob)
+whoHasAJob
+
+# the wages of those who have a job
+wage[whoHasAJob]
+```
+
+```{r}
+fct <- factor(
+  c('參','貮','貮','貮','壹','貮','參','貮','參','參'),
+  levels=c('壹','貮','參')
+  )
+
+dt <- lubridate::ymd_hms(
+  c('2012-08-25 19:36:00','2018-01-06 10:44:00','2010-03-08 00:56:00')
+)
+```
+
+```{r}
+print(fct)
+as.character(fct)
+
+typeof(fct)
+as.numeric(fct) # the positions in levels
+```
+
+```{r}
+#exercise 4.6
+haha <- factor(c('參','貮','貮','貮','壹','貮','參','貮','參','參'),
+              levels = c('壹','貮','參'))
+sum(as.numeric(haha))
+```
+```{r}
+#exercise 4.7
+haha2<-factor(c('۶','۹','۸','۹','۶','۸','۸','۵','۹','۹'),
+              levels = c(1,2,3,4,"۵", "۶", "۷", "۸", "۹"))
+sum(as.numeric(haha2))
+
+```
+
+```{r}
+print(dt)
+as.character(dt)
+
+typeof(dt)
+as.numeric(dt) # how many seconds past 1970-01-01 00:00
+```
+
+```{r}
+x0 <- 1595950405 # the number of seconds
+lubridate::as_datetime(x0)
+```
+
+```{r}
+location_history <- jsonlite::fromJSON("https://www.dropbox.com/s/db2vt4w9u2w7onx/Location%20History.json?dl=1")
+```
+
+```{r}
+print(location_history$locations$timestampMs)
+```
+
+```{r}
+location_history$locations$timestampMs/(10**3)
+```
+
+```{r}
+timeStampMs_as.numeric <- 
+  as.numeric(
+    location_history$locations$timestampMs
+  )
+timeStamp_inSecondUnit <-
+  timeStampMs_as.numeric/(10**3)
+
+timeStamp_dateTimeClass <-
+  lubridate::as_datetime(
+    timeStamp_inSecondUnit
+  )
+timeStamp_dateTimeClass
+
+```
+
+
+
+```{r}
+timeStamp_dateTimeClass <- 
+  {
+    # Step 1: convert character to numeric
+    as.numeric(location_history$locations$timestampMs) -> step1
+    
+    # Step 2: given step 1 result, change millisecond to second unit
+    step1/(10**3) -> step2
+    
+    # Step 3: given step 2 result, convert numeric seconds to date/time class
+    lubridate::as_datetime(step2)
+  }
+```
+
+```{r}
+#exercise 4.8
+letter_grades <- c("C", "B-", "B", "B+", "A-", "A", "A+")
+numeric_grades <- c(2, 2.5, 3, 3.5, 4, 4.5, 5)
+studentGrades <- c('B','A','A+','B+','A-','B','B-','B','A+','B+','C','B-','B-','B','C','C','B+','B','B+','B')
+studentLetterGrades <- {
+  # Task map c("C", "B-", "B", "B+", "A-", "A", "A+") to c(2, 2.5, 3, 3.5, 4, 4.5, 5)
+  
+  # step1: for each grade in studentGrades find its position in c("C", "B-", "B", "B+", "A-", "A", "A+") so if studentGrades = c("C","A-"), step1 = c(1, 5) since c("C", "B-", "B", "B+", "A-", "A", "A+")[c(1, 5)] will give him "C", "A-"
+  student_grades_factor<-factor(studentGrades,
+     levels = letter_grades                          )
+  # step2: Use step1 result as position indices to retrieve from c(2, 2.5, 3, 3.5, 4, 4.5, 5). From previous example, step1=c(1, 5), then  c(2, 2.5, 3, 3.5, 4, 4.5, 5)[step1] will give him c(2, 4)
+  as.numeric(student_grades_factor)/2 + 1.5
+  
+}
+studentLetterGrades
+```
+
